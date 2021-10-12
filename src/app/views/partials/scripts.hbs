@@ -1,0 +1,251 @@
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"> </script>
+<script src="alertfy/alertify.min.js"></script>
+<script src="https://kit.fontawesome.com/0bd120f460.js" crossorigin="anonymous"></script>
+<script src="styles/Bootstrap/js/bootstrap.min.js"></script>
+
+
+<script>
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+
+  async function validate() {
+    const username = document.login.username.value
+    const password = document.login.password.value
+    if (username == '' || password == '') {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error("Você deve fornecer um usuário e uma senha!");
+    } else {
+      const result = await axios.post(`/account/login/${username}/${password}`, { headers: { "Content-Type": "application/json" } })
+      if (result.data.error == true) {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error(result.data.errormessage);
+      } else {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.success("Autenticado com sucesso!");
+        await sleep(1000)
+        window.location.href = '/dashboard'
+      }
+
+    }
+  }
+
+</script>
+
+<script>
+  async function addGame() {
+    const name = document.createGame.name.value
+    const description = document.createGame.description.value
+    const imglink = document.createGame.imglink.value
+    const date = document.createGame.date.value
+    const rooms = document.createGame.rooms.value
+    const location = document.createGame.location.value
+    const prize = document.createGame.prize.value
+
+    if (name == "" || description == "" || imglink == "" || date == "" || rooms == "" || location == "" || prize == "") {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error('Você deve preencher todos os dados!');
+
+    } else {
+      const response = await axios({ method: 'post', url: `/admin-games/create`, data: { name: name, description: description, imglink: imglink, date: date, rooms: rooms, location: location, prize: prize } })
+
+      if (response.data.error == true) {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error(response.data.errormessage);
+      } else {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.success("Jogo criado com sucesso!");
+        window.location.href = '/admin-games'
+
+      }
+    }
+
+  }
+
+  async function AddMember() {
+    const username = document.createMember.username.value
+    const password = document.createMember.password.value
+    const name = document.createMember.name.value
+    const classe = $( "#Room option:selected" ).text()
+
+    if (username == "" || password == "" || name == "" || classe == "") {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error('Você deve preencher todos os dados!');
+
+    } else {
+
+      const response = await axios.post(`/admin-members/create/${username}/${password}/${classe}/${name}`)
+      console.log(response)
+      if (response.data.error == true) {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error(response.data.errormessage);
+      } else {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.success("Usuário criado com sucesso!");
+        await sleep(300)
+        window.location.href = '/admin-members'
+      }
+    }
+  }
+
+</script>
+
+<script>
+
+  function openModal(id, name, points, games) {
+
+    $('#exampleModalCenter #id').val(id);
+    $('#exampleModalCenter #name').val(name);
+    $('#exampleModalCenter #points').val(points);
+    $('#exampleModalCenter #games').val(games);
+    $('#exampleModalCenter').modal('show');
+
+  }
+
+  function openModalEditUser(id, username, password, classe, name) {
+    $('#EditUserModal #idEdit').val(id);
+    $('#EditUserModal #usernameEdit').val(username);
+    $('#EditUserModal #passwordEdit').val(password);
+    $('#EditUserModal #classeEdit').val(classe);
+    $('#EditUserModal #nameEdit').val(name);
+    $('#EditUserModal').modal('show')
+  }
+
+  function openModalSeeMore(name, description, rooms, date, location, prize, winner) {
+    $('#ModalSeeMore #name').val(name);
+    $('#ModalSeeMore #description').val(description);
+    $('#ModalSeeMore #date').val(date);
+    $('#ModalSeeMore #bwt').val(rooms);
+    $('#ModalSeeMore #location').val(location);
+    $('#ModalSeeMore #prize').val(prize);
+    $('#ModalSeeMore #winner').val(winner);
+    $('#ModalSeeMore').modal('show')
+  }
+
+  function openModalEditGame(id, name, description, rooms, date, img, winner, location, prize) {
+    $('#EditGameModal #id').val(id);
+    $('#EditGameModal #name').val(name);
+    $('#EditGameModal #description').val(description);
+    $('#EditGameModal #rooms').val(rooms);
+    $('#EditGameModal #date').val(date);
+    $('#EditGameModal #img').val(img);
+    $('#EditGameModal #winner').val(winner);
+    $('#EditGameModal #location').val(location);
+    $('#EditGameModal #prize').val(prize);
+    $('#EditGameModal').modal('show')
+  }
+
+</script>
+
+<script>
+
+  async function updateUser() {
+    const id = document.getElementById('idEdit').value
+    const username = document.getElementById('usernameEdit').value
+    const password = document.getElementById('passwordEdit').value
+    const classe = $( "#classeEdit option:selected" ).text()
+    const name = document.getElementById('nameEdit').value
+
+    const response = await axios({ method: 'post', url: `/admin-members/edit`, data: { id: id, username: username, password: password, classe: classe, name: name } })
+
+    if (response.data.error == true) {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error(response.data.errormessage);
+    } else {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.success("Usuário editado com sucesso!");
+      await sleep(300)
+      window.location.href = '/admin-members'
+    }
+
+  }
+
+  async function UpdateStatistics() {
+    const id = document.getElementById('id').value
+    const points = document.getElementById('points').value
+    const games = document.getElementById('games').value
+
+    if(points == "" || games == ""){
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error('Você deve inserir um número.');
+    }else if(points < 0 || games < 0){
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error('O número inserido deve ser maior ou igual a 0.');
+    } else if(typeof points == String || typeof games == String){
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error('Você deve apenas inserir números');
+    }else{
+      const response = await axios({ method: 'post', url: `/admin-points/change`, data: { id: id, points: points, games: games } })
+      if (response.data.error == true) {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.error(response.data.errormessage);
+      } else {
+        alertify.set('notifier', 'position', 'top-right');
+        alertify.success("A pontuação foi atualizada com sucesso!");
+        await sleep(300)
+        window.location.href = '/admin-points'
+      }
+
+    }
+
+  }
+
+  async function updateGame() {
+    const id = document.getElementById('id').value
+    const name = document.getElementById('name').value
+    const description = document.getElementById('description').value
+    const rooms = document.getElementById('rooms').value
+    const date = document.getElementById('date').value
+    const img = document.getElementById('img').value
+    const winner = document.getElementById('winner').value
+    const location = document.getElementById('location').value
+    const prize = document.getElementById('prize').value
+
+    const response = await axios({ method: 'post', url: `/admin-games/edit`, data: { id: id, name: name, description: description, rooms: rooms, date: date, img: img, winner: winner, location: location, prize: prize } })
+
+    if (response.data.error == true) {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error(response.data.errormessage);
+    } else {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.success("A o jogo foi atualizado com sucesso!");
+      await sleep(300)
+      window.location.href = '/admin-games'
+    }
+
+  }
+</script>
+
+<script>
+
+  async function deleteMember(id) {
+    const response = await axios({ method: 'post', url: `/admin-members/delete`, data: { id: id } })
+    if (response.data.error == true) {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error(response.data.errormessage);
+    } else {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.success("Usuário deletado com sucesso!");
+      await sleep(300)
+      window.location.href = '/admin-members'
+    }
+  }
+
+  async function deleteGame(id) {
+    const response = await axios({ method: 'post', url: `/admin-games/delete`, data: { id: id } })
+    console.log(response)
+    if (response.data.error == true) {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.error(response.data.errormessage);
+    } else {
+      alertify.set('notifier', 'position', 'top-right');
+      alertify.success("Jogo deletado com sucesso!");
+      await sleep(300)
+      window.location.href = '/admin-games'
+    }
+  }
+
+</script>

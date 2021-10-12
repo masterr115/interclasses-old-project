@@ -1,0 +1,94 @@
+<div class="account" id="account">
+  <div class="container">
+    <div class="content-flex">
+
+      <section class="sidebar">
+        <ul class="sidebar-menu">
+          <li class="mainmenu">
+            <a href="/admin">
+              <span>Controle</span>
+            </a>
+          </li>
+          <li class="mainmenu">
+            <a href="/admin-members">
+              <span>Membros</span>
+            </a>
+          </li>
+          <li class="mainmenu">
+            <a href="/admin-games">
+              <span>Jogos</span>
+            </a>
+          </li>
+          <li class="mainmenu active">
+            <a class='active' href="/admin-points">
+              <span>Pontuação</span>
+            </a>
+          </li>
+
+        </ul>
+      </section>
+
+      <div class="body-right">
+        <h2 class='pr-5 mr-5'>Pontuação</h2>
+
+        <div class="row">
+          <div class='d-flex pt-3 flex-wrap justify-content-between align-content-between align-items-start'>
+
+            {{#each classes}}
+
+            <div class="shadow p-3 mb-4 bg-white rounded card p-1 bd-highlight mr-5" style="width: 18rem ">
+              <div class="text-center"><img class="card-img-top card-header "
+                  src="imgs/estatisticas.jpg" alt="Imagem"
+                  width="150">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title text-center">{{serie}} - Estatísticas</h5>
+                <p class="card-text text-center">Pontos: {{Points}}<br>Jogos: {{Games}}<br></p>
+                <div class="text-center card-footer">
+
+                  <button onclick="openModal(`{{_id}}`, `{{serie}}`, {{Points}}, {{Games}})"
+                    class="btn btn-warning">Editar</button>
+
+                </div>
+              </div>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal fade" id="exampleModalCenter" tabindex="2" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Informações</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class='modal-body'>
+          <form name="UpdateStatisticsValues" method="POST">
+            <h5>ID: </h5><input type="text" class="form-control" id="id" value="" readonly='readonly'
+              style="width: 300px;"><br>
+            <h5>Sala: </h5><input type="text" class="form-control" id="name" value="" readonly='readonly'
+              style="width: 300px;"><br>
+            <h5>Pontos: </h5><input type="number" min='0' max='6' onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))" class="form-control" id="points" value="{{Points}}"
+              style="width: 150px;"><br>
+            <h5>Jogos: </h5><input type="number" min='0' max='6' onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))" class="form-control" id="games" value="{{Games}}"
+              style="width: 150px;"><br>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal" onclick="UpdateStatistics()">Salvar
+            aterações</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+</div>

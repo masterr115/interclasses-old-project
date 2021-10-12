@@ -1,0 +1,23 @@
+<body>
+  <div class='container dashboard-main'>
+    <h2 class='pb-2'>Estatísticas Gerais</h2>
+
+
+    <div class="d-lg-flex flex-wrap bd-highlight">
+      {{#each statistics}}
+      <div class="shadow p-2 mb-5 bg-white rounded card bd-highlight mr-3" style="width: 260px; ">
+        <div class="text-center"><img class="card-img-top card-header "
+            src="imgs/estatisticas.jpg" alt="Imagem" width="150">
+        </div>
+        <div class="card-body">
+          <h5 class="card-title text-center">{{serie}} - Pontuação</h5>
+          <p class="card-text">Pontos: {{Points}}</p>
+          <p class="card-text">Jogos: {{Games}}</p>
+
+        </div>
+      </div>
+      {{/each}}
+    </div>
+    <br>
+  </div>
+</body>

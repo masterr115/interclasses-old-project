@@ -1,0 +1,73 @@
+<div class="account" id="account">
+  <div class="container">
+    <div class="content-flex">
+
+      <section class="sidebar">
+        <ul class="sidebar-menu">
+          <li class="mainmenu active">
+            <a class="active" href="/admin">
+              <span>Controle</span>
+            </a>
+          </li>
+          <li class="mainmenu">
+            <a href="/admin-members">
+              <span>Membros</span>
+            </a>
+          </li>
+          <li class="mainmenu">
+            <a href="/admin-games">
+              <span>Jogos</span>
+            </a>
+          </li>
+          <li class="mainmenu">
+            <a href="/admin-points">
+              <span>Pontuação</span>
+            </a>
+          </li>
+
+        </ul>
+      </section>
+
+      <div class="body-right">
+        <div class="content">
+
+          <div class="card-body">
+            <div class="content-flex">
+              <i class="fa fa-users"></i>
+              <span>
+                <h1>{{users.length}}</h1>
+                <p>Membro(s)</p>
+              </span>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="content-flex">
+              <i class="fa fa-gamepad"></i>
+
+              <span>
+                <h1>{{games.length}}</h1>
+                <p>Jogo(s)</p>
+              </span>
+            </div>
+          </div>
+
+          <div class="card-body">
+            <div class="content-flex">
+              <i class="fa fa-book"></i>
+
+              <span>
+                <h1>{{classes.length}}</h1>
+                <p>Classes registrada(s)</p>
+              </span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+</div>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+{{> head}}
+<header>
+  {{#if loginPage }}
+  {{else}}
+  {{> header}}
+  {{/if}}
+</header>
+
+<body>
+  {{{body}}}
+</body>
+
+<footer>
+  {{#if loginPage}}
+  {{else}}
+  {{> footer}}
+  {{/if}}
+</footer>
+
+{{> scripts}}
+
+</html>

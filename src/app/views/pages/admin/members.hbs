@@ -1,0 +1,135 @@
+<div class="account" id="account">
+  <div class="container">
+    <div class="content-flex">
+
+      <section class="sidebar">
+        <ul class="sidebar-menu">
+          <li class="mainmenu">
+            <a href="/admin">
+              <span>Controle</span>
+            </a>
+          </li>
+          <li class="mainmenu active">
+            <a class='active' href="/admin-members">
+              <span>Membros</span>
+            </a>
+          </li>
+          <li class="mainmenu">
+            <a href="/admin-games">
+              <span>Jogos</span>
+            </a>
+          </li>
+          <li class="mainmenu">
+            <a href="/admin-points">
+              <span>Pontuação</span>
+            </a>
+          </li>
+
+        </ul>
+      </section>
+
+      <div class="body-right">
+
+        <h2 class='pr-5 mr-5'>Membros</h2>
+        <div class='text-right ml-5 pl-5'><button class='btn btn-success' data-target="#ModalCreate"
+            data-toggle="modal">Adicionar</button></div>
+
+
+        <div class="row">
+          <div class='d-flex pl-2 pt-4 flex-wrap justify-content-between align-content-between align-items-start'>
+
+            {{#each users}}
+
+            <div>
+              <div class="text-center"><img class="card-img-top card-header "
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/User_font_awesome.svg/1200px-User_font_awesome.svg.png"
+                  alt="Imagem" width="150">
+              </div>
+              <div class="card-body">
+                <h5 class="card-title text-center">{{Name}} - {{Serie}}</h5>
+                <p class="card-text text-center">Usuário: {{username}}<br>Senha: {{password}}<br></p>
+                <div class="text-right card-footer">
+                  <button
+                    onclick="openModalEditUser('{{_id}}', '{{username}}', '{{password}}', '{{Serie}}', '{{Name}}')"
+                    class="btn btn-warning">Editar</button>
+                  <a onclick="deleteMember(`{{_id}}`)" class="btn btn-danger">Deletar</a>
+                </div>
+              </div>
+            </div>
+            {{/each}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="ModalCreate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Adicionando usuário</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class='modal-body'>
+          <form name='createMember' method="POST">
+            <h5>Usuário: </h5><input type="text" class="form-control" name="username"><br>
+            <h5>Senha: </h5><input type="password" class="form-control" name="password"><br>
+            <h5>Classe: </h5><select class="form-control" id="Room">
+                                <option>1A</option>
+                                <option>1B</option>
+                                <option>2A</option>
+                                <option>2B</option>
+                                <option>3A</option>
+                                <option>3B</option>
+                             </select><br>
+            <h5>Nome: </h5><input type="text" class="form-control" name="name"><br>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-success" onclick="AddMember()" data-dismiss="modal">Adcionar</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="EditUserModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Informações</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class='modal-body'>
+          <form name="UpdateStatisticsValues" method="POST">
+            <h5>ID: </h5><input type="text" class="form-control" id="idEdit" value="" readonly='readonly'><br>
+            <h5>Nome: </h5><input type="text" class="form-control" id="nameEdit" value="{{Name}}"><br>
+            <h5>Usuário: </h5><input type="text" class="form-control" id="usernameEdit" value="{{username}}"><br>
+            <h5>Senha: </h5><input type="text" class="form-control" id="passwordEdit" value="{{password}}"><br>
+            <h5>Classe: </h5><select class="form-control" id="classeEdit">
+                                <option>1A</option>
+                                <option>1B</option>
+                                <option>2A</option>
+                                <option>2B</option>
+                                <option>3A</option>
+                                <option>3B</option>
+                             </select><br>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-success" data-dismiss="modal" onclick="updateUser()">Salvar
+            aterações</button>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>

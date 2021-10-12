@@ -1,0 +1,27 @@
+<header class="header1">
+  <a href="/dashboard" class="logo">
+    <span class='text-black-50'>INTERCLASSES</span>
+  </a>
+  <input class="menu-btn" type="checkbox" id="menu-btn" />
+  <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+  <ul class="menu">
+    <li>
+      <a href="/dashboard">
+        <span class='text-black-50'>Início</span>
+      </a>
+    </li>
+    <li>
+      <a href="/statistics">
+        <span class='text-black-50'>Estatísticas</span>
+      </a>
+    </li>
+    {{#if (isAdmin session true)}}
+    <li>
+      <a href="/admin"><span class='text-black-50'>Admin</span></a>
+    </li>
+    {{/if}}
+    <li>
+      <a href="/logout"><span class='text-black-50'>Sair</span></a>
+    </li>
+  </ul>
+</header>

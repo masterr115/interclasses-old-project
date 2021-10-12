@@ -1,0 +1,77 @@
+<body>
+  <div class='container dashboard-main'>
+    <h2 class='pb-2'>Jogos</h2>
+
+    <div class="d-flex flex-wrap bd-highlight mb-4">
+      {{#each find}}
+      <div class="shadow p-3 mb-5 bg-white rounded card p-2 bd-highlight mr-3" style="width: 18rem ">
+        <div class="text-center"><img class="card-img-top card-header " src={{img}} alt="Imagem" width="150"></div>
+        <div class="card-body">
+          <h5 class="card-title text-center">{{name}} - {{rooms}}</h5>
+          <p class="card-text text-center">{{description}}<br><br><strong>Dia: {{formatdate date}}</strong></p>
+
+          <div class="text-right card-footer"><button
+              onclick="openModalSeeMore(`{{name}}`, `{{description}}`, `{{rooms}}`, `{{formatdate date}}`, `{{location}}`, `{{prize}}`, `{{winner}}`)"
+              class="btn btn-warning">Ver
+              mais</button></div>
+        </div>
+      </div>
+
+      {{/each}}
+    </div>
+
+    <h2 class='pb-2'>Estatísticas de sua sala</h2>
+    <div class="card p-2 bd-highlight" style="width: 18rem; padding-right: 10px">
+
+      <div class="text-center"><img class="card-img-top text-center card-header"
+          src="imgs/estatisticas.jpg" alt="Imagem" width="150"></div>
+      <div class="card-body">
+        <h5 class="card-title">Estatíticas - {{statistics.serie}}</h5>
+        <p class="card-text">Pontos global: {{statistics.Points}}</p>
+        <p class="card-text">Jogos: {{statistics.Games}}</p>
+      </div>
+    </div>
+    <br>
+  </div>
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="ModalSeeMore" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Informações do evento</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class='modal-body'>
+
+            <h5>Nome do evento: </h5><input type="text" class="form-control" id="name" value="" readonly='readonly'><br>
+            <h5>Descição do evento: </h5><input type="text" class="form-control" id="description" value="{{Name}}"
+              readonly='readonly'><br>
+            <h5>Data do evento: </h5><input type="text" class="form-control" id="date" value="{{username}}"
+              readonly='readonly'><br>
+            <h5>Disputa: </h5><input type="text" class="form-control" id="bwt" value="{{password}}"
+              readonly='readonly'><br>
+            <h5>Local: </h5><input type="text" class="form-control" id="location" value="{{password}}"
+              readonly='readonly'><br>
+            <h5>Prêmio: </h5><input type="text" class="form-control" id="prize" value="{{password}}"
+              readonly='readonly'><br>
+            <h5>Ganhador: </h5><input type="text" class="form-control" id="winner" value="{{password}}"
+              readonly='readonly'><br>
+
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</body>
